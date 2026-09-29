@@ -1,0 +1,7 @@
+HOMELAB RISK REGISTER,,,,,,Compliance Score:,42.86%,
+Total Scanned Controls:,,7,Passed,3,Failed,,4,
+Risk ID,Asset Name,Vulnerability / Control Failure,Impact,Likelihood,Risk Score (L×I),Risk Severity,Mitigation SLA,Status
+RISK-MINT-01,mint01,Missing PAM account lockout configuration,4,4,16,High,14 Days,Open
+RISK-MINT-02,mint01,Disabled auditd logging daemon,4,4,16,High,14 Days,Open
+RISK-MINT-03,mint01,Password expiration not bounded (more than 365 days),3,3,9,Medium,30 Days,Open
+RISK-MINT-04,mint01,Unnecessary print service (CUPS) running,2,3,6,Medium,30 Days,Open
