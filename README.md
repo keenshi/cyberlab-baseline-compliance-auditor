@@ -59,7 +59,7 @@ Risks are prioritized and mapped using a standard $5 \times 5$ Risk Assessment M
 
 ---
 
-## 🔧 Automated Remediation Script (`scripts/remediate_mint01.sh`)
+## 🔧 Remediation Script (`scripts/remediate_mint01.sh`)
 
 To enforce consistency and eliminate manual errors, remediation was automated using the following shell script:
 
