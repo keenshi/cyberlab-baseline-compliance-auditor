@@ -30,6 +30,11 @@ This project demonstrates an end-to-end ICT Risk Management & Compliance lifecyc
 
 ---
 
+## ☑️ Matrix Impact Vs Likelihood
+
+<img width="871" height="435" alt="image" src="https://github.com/user-attachments/assets/313af4b4-b2d0-4e2a-babd-468e734b37ff" />
+
+
 ## 📑 Repository Content & Deliverables
 * `docs/CyberLab-Risk-Assessment.csv` — Full Risk Register template with formulas, impact/likelihood scoring, and dynamic SLAs.
 * `docs/Executive_Presentation_Deck.pdf` — Executive-level briefing deck summarizing posture, top risks, and mitigation roadmaps.
