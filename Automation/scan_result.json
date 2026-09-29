@@ -1,0 +1,30 @@
+{
+  "target_host": "mint01",
+  "total_evaluated": 7,
+  "failed_checks": [
+    {
+      "check_id": 3016,
+      "title": "Missing PAM account lockout configuration",
+      "impact": 4,
+      "likelihood": 4
+    },
+    {
+      "check_id": 3022,
+      "title": "Disabled auditd logging daemon",
+      "impact": 4,
+      "likelihood": 4
+    },
+    {
+      "check_id": 3019,
+      "title": "Password expiration not bounded (>365 days)",
+      "impact": 3,
+      "likelihood": 3
+    },
+    {
+      "check_id": 3021,
+      "title": "Unnecessary print service (CUPS) running",
+      "impact": 2,
+      "likelihood": 3
+    }
+  ]
+}
