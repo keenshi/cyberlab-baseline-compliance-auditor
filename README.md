@@ -1,7 +1,4 @@
-# cyberlab-baseline-compliance-auditor
-
-
-# Enterprise ICT Security Baseline Audit & Automated Remediation Pipeline
+# Enterprise Security Baseline Audit & Automated Remediation Pipeline
 
 ## Executive Summary
 This project demonstrates an end-to-end ICT Risk Management & Compliance lifecycle performed on an enterprise endpoint in the **CyberLab** environment. Using **Wazuh SCA (Security Configuration Assessment)** aligned with **CIS Benchmarks**, baseline failures were ingested, evaluated on a $5 \times 5$ Risk Matrix, documented in a structured Risk Register, and systematically remediated.
