@@ -10,26 +10,26 @@ Using **Wazuh SCA (Security Configuration Assessment)** aligned with **CIS Bench
 ## 2. End-to-End Workflow Architecture
 
 ```text
-┌────────────────────────────────┐
-│   1. Endpoint Audit (Wazuh)    │  <-- Evaluates node against CIS Benchmarks
-└───────────────┬────────────────┘
-                │ Raw Scan CSV
-                ▼
-┌────────────────────────────────┐
-│ 2. Data Ingestion & Scoring    │  <-- Calculates Impact x Likelihood scores
-└───────────────┬────────────────┘
-                │ Structured Risk Data
-                ▼
-┌────────────────────────────────┐
-│ 3. Risk Register & SLAs        │  <-- Maps findings to 14/30/60-day SLAs
-└───────────────┬────────────────┘
-                │ Actionable Fixes
-                ▼
-┌────────────────────────────────┐
-│ 4. Automated OS Hardening      │  <-- Runs `remediate_mint01.sh`
-└───────────────┬────────────────┘
-                │ Agent Rescan
-                ▼
-┌────────────────────────────────┐
-│ 5. 100% Verified Compliance    │  <-- Rescan confirms 0 failed checks
-└────────────────────────────────┘
+┌──────────────────────────┐
+│ Wazuh SIEM Manager (SCA) │
+└────────────┬─────────────┘
+             │ 1. Triggers Webhook on "SCA Audit Failed" Event
+             ▼
+┌──────────────────────────┐
+│ Python Orchestrator API  │
+│  (`compliance_engine.py`)│ ──> 2. Parses Wazuh Event Payload
+└────────────┬─────────────┘     3. Calculates $L \times I$ Risk Score & SLA
+             │                   4. Updates CSV / Excel / SharePoint Register
+             │                   5. Sends Teams/Email Alert (via Webhook)
+             │
+             │ 6. Executes Remotely via SSH
+             ▼
+┌──────────────────────────┐
+│   Target Endpoint Node   │
+│     (`remediate.sh`)     │ ──> 7. Hardens OS Settings (PAM, auditd, CUPS)
+└────────────┬─────────────┘     8. Restarts Wazuh Agent
+             │
+             ▼
+┌──────────────────────────┐
+│ Rescan & Auto-Closure    │ ──> 9. Python API sets Risk Status to "Mitigated"
+└──────────────────────────┘
