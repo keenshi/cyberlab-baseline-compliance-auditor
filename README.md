@@ -5,7 +5,10 @@ This project demonstrates an end-to-end ICT Risk Management & Compliance lifecyc
 
 ---
 
-## 📊 Pre vs. Post Remediation Metrics
+## 📊 Remediation Metrics
+
+<img width="1662" height="220" alt="image" src="https://github.com/user-attachments/assets/343f273c-f757-4413-9dfe-8ce2a1212a21" />
+
 
 | Metric | Initial SCA Audit | Post-Remediation Audit | Delta |
 | :--- | :---: | :---: | :---: |
