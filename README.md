@@ -59,7 +59,7 @@ Risks are prioritized and mapped using a standard $5 \times 5$ Risk Assessment M
 
 | Severity Level | Risk Score Range | Color Code | Remediation SLA | Operational Action Required |
 | :--- | :---: | :--- | :---: | :--- |
-| **Critical** | **20 – 25** | Dark Red | **7 Days** | Emergency patch deployment; direct escalation to CISO and system owners. |
+| **Critical** | **20 – 25** | Dark Red | **7 Days** | Emergency patch deployment, direct escalation to CISO and system owners. |
 | **High** | **12 – 19** | Light Red | **14 Days** | Priority remediation within the current operational sprint. |
 | **Medium** | **6 – 11** | Yellow | **30 Days** | Scheduled remediation during the standard monthly maintenance window. |
 | **Low** | **1 – 5** | Green | **60–90 Days** | Risk accepted or remediated during routine system updates. |
