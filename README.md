@@ -18,6 +18,7 @@ In this project, an endpoint node (`mint01`) monitored by a dual-homed **Wazuh S
 
 ### After Remidiation
 <img width="1912" height="910" alt="image" src="https://github.com/user-attachments/assets/df2847c0-ce8a-452f-9b38-95b65acdb502" />
+<img width="1762" height="236" alt="image" src="https://github.com/user-attachments/assets/9738eb5a-9c79-4811-bf4f-8927b88f62e9" />
 
 
 ### Compliance Delta (Initial vs. Phase 1 Remediation)
