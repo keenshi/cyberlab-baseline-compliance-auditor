@@ -1,14 +1,14 @@
 # Enterprise Security Baseline Audit & Automated Remediation Pipeline
 
-An end-to-end ICT Risk Management and Baseline Compliance workflow executed within the **CyberLab** environment. This project demonstrates automated vulnerability ingestion, risk assessment using a standard $5 \times 5$ Risk Matrix, structured Risk Register documentation, executive presentation reporting, and shell-based security remediation.
+An end-to-end ICT Risk Management and Baseline Compliance workflow executed within the **CyberLab** environment. This project demonstrates automated vulnerability ingestion via **Wazuh SCA (Security Configuration Assessment)**, risk scoring using a standard $5 \times 5$ Risk Matrix, structured Risk Register documentation, executive presentation reporting, and shell-based security remediation.
 
 ---
 
 ## 📌 Executive Summary
 
-Modern enterprise IT/OT environments require continuous baseline monitoring and rapid remediation to adhere to standards such as **CIS Benchmarks**, **ISO/IEC 27001**, and **NIST SP 800-53**. 
+Modern enterprise IT/OT environments require continuous baseline monitoring and rapid remediation to adhere to standards such as **CIS Benchmarks**, **ISO/IEC 27001**, and **NIST SP 800-53**.
 
-In this project, an endpoint node (`mint01`) monitored by a dual-homed **Wazuh SIEM Manager** underwent a Security Configuration Assessment (SCA). Initial findings revealed an acceptable baseline score of only **42.86%** across evaluated checks. Findings were extracted, categorized, scored based on Impact vs. Likelihood, and mapped to SLA-driven mitigation targets. Following automated remediation via shell scripting, the system achieved a **100.00% compliance rating** on all evaluated controls.
+In this project, an endpoint node (`mint01`) monitored by a dual-homed **Wazuh SIEM Manager** underwent a Security Configuration Assessment (SCA). Initial findings revealed an acceptable baseline compliance score of **42.86%** across evaluated checks (3 Passed, 4 Failed). Findings were extracted, categorized, scored based on Impact vs. Likelihood ($L \times I$), and mapped to SLA-driven mitigation targets. Following shell-based automated remediation, the system achieved an **85.71% compliance score (6 Passed, 1 Failed)**, representing a **+42.85% posture improvement**.
 
 ---
 
@@ -16,14 +16,19 @@ In this project, an endpoint node (`mint01`) monitored by a dual-homed **Wazuh S
 
 <img width="1662" height="220" alt="Risk Assessment Summary Dashboard" src="https://github.com/user-attachments/assets/343f273c-f757-4413-9dfe-8ce2a1212a21" />
 
-### Compliance Delta (Pre vs. Post Remediation)
+### After Remidiation
+<img width="1912" height="910" alt="image" src="https://github.com/user-attachments/assets/df2847c0-ce8a-452f-9b38-95b65acdb502" />
 
-| Compliance Metric | Initial SCA Audit | Post-Remediation Audit | Metric Delta |
+
+### Compliance Delta (Initial vs. Phase 1 Remediation)
+
+| Compliance Metric | Initial SCA Audit | Phase 1 Remediation Audit | Metric Delta |
 | :--- | :---: | :---: | :---: |
 | **Total Evaluated CIS Controls** | 7 | 7 | 0 |
-| **Passed Checks** | 3 | 7 | **+4** |
-| **Failed Checks** | 4 | 0 | **-4** |
-| **Compliance Score (%)** | **42.86%** | **100.00%** | **+57.14%** |
+| **Passed Checks** | 3 | 6 | **+3** |
+| **Failed Checks** | 4 | 1 | **-3** |
+| **Not Applicable Checks** | 16 | 16 | 0 |
+| **Overall Compliance Score (%)** | **42.86%** | **85.71%** *(Wazuh Dashboard: 85%)* | **+42.85%** |
 
 ---
 
@@ -33,12 +38,13 @@ Inherent Risk Scores are calculated using the enterprise formula:
 
 $$\text{Inherent Risk Score} = \text{Impact (1–5)} \times \text{Likelihood (1–5)}$$
 
-| Risk ID | Vulnerability / Control Finding | Threat Description & Framework Mapping | Impact | Likelihood | Risk Score | Severity | Mitigation SLA | Applied Remediation | Final Status |
+| Risk ID | Vulnerability / Control Finding | Threat Description & Framework Mapping | Impact | Likelihood | Risk Score | Severity | Remediation SLA | Applied Remediation | Final Status |
 | :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :--- | :---: |
-| **RISK-MINT-01** | Missing PAM Account Lockout Policy | System lacks lockout mechanisms after repeated failed login attempts; vulnerable to brute-force attacks (*NIST SP 800-53 IA-5*). | 4 | 4 | **16** | **High** | 14 Days | Appended `pam_faillock` / `pam_tally2` rule (`deny=5`, `unlock_time=900`) to `/etc/pam.d/common-auth`. | **Mitigated** |
+| **RISK-MINT-01** | Missing PAM Account Lockout Policy | System lacks lockout mechanisms after repeated failed login attempts; vulnerable to brute-force attacks (*NIST SP 800-53 IA-5*). | 4 | 4 | **16** | **High** | 14 Days | Appended `pam_faillock` rule (`deny=5`, `unlock_time=900`) to `/etc/pam.d/common-auth`. | **Mitigated** |
 | **RISK-MINT-02** | Disabled System Audit Daemon (`auditd`) | System logging daemon is inactive; severely limits forensic tracing and event visibility (*CIS CSC 6.2/6.3*). | 4 | 4 | **16** | **High** | 14 Days | Installed and enabled service via `apt install auditd` and `systemctl enable --now auditd`. | **Mitigated** |
 | **RISK-MINT-03** | Unbounded Password Expiration Period | `PASS_MAX_DAYS` parameter exceeds 365 days; increases exposure window for compromised credentials (*CIS CSC 4.4*). | 3 | 3 | **9** | **Medium** | 30 Days | Modified `/etc/login.defs` setting `PASS_MAX_DAYS 365`. | **Mitigated** |
 | **RISK-MINT-04** | Active Unnecessary Print Service (`cups`) | Print service enabled on non-printing system; expands unneeded network attack surface (*CIS CSC 9.1/9.2*). | 2 | 3 | **6** | **Medium** | 30 Days | Stopped and disabled daemon via `systemctl disable --now cups`. | **Mitigated** |
+| **RISK-MINT-05** | SSH Configuration Hardening Finding | SSH service configuration requires hardening per CIS benchmark standards. | 3 | 3 | **9** | **Medium** | 30 Days | *Pending Final SSH Parameter Tuning* | **In Progress** |
 
 ---
 
@@ -114,5 +120,5 @@ echo "[+] [5/5] Restarting Wazuh Agent to trigger immediate SCA audit rescan..."
 sudo systemctl restart wazuh-agent
 
 echo "=================================================="
-echo "[✓] Remediation Complete. Compliance score verified at 100%."
+echo "[✓] Phase 1 Remediation Complete. Compliance score verified at 85.71%."
 echo "=================================================="
